@@ -18,11 +18,13 @@ fn main() -> Result<(), Error> {
     let user_id: i32 = 11; 
     let dropuser = user.clone(); // Clone the value
     let updateuser = user.clone(); // Clone the value
-  
-    actions::create::Select(&mut _client);
-    actions::create::Insert(&mut _client,user,user_id);
-    actions::create::Drop(&mut _client, dropuser,user_id);
-    actions::create::Update(&mut _client, updateuser,user_id);
+   // working just commeted below code 
+  //  actions::create::Select(&mut _client);                                     
+  //  actions::create::Insert(&mut _client,user,user_id);
+  //  actions::create::Drop(&mut _client, dropuser,user_id);
+  //  actions::create::Update(&mut _client, updateuser,user_id);
+    
+  actions::create::CreateTable(&mut _client);
     
 
     println!("Helo world " );

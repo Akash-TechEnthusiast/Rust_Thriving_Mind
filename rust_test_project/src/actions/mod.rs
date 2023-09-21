@@ -75,4 +75,66 @@ pub mod create {
         Ok(())
     }
 
+
+    pub fn CreateTable(client: &mut Client) -> Result<(), Error> {
+    
+        client.batch_execute(
+            "
+            CREATE TABLE IF NOT EXISTS next_gen_app.app_user (
+                id              SERIAL PRIMARY KEY,
+                username        VARCHAR UNIQUE NOT NULL,
+                password        VARCHAR NOT NULL,
+                email           VARCHAR UNIQUE NOT NULL
+                )
+        ",
+        )?;
+
+        client.execute(
+            "INSERT INTO next_gen_app.app_user (username, password, email) VALUES ($1, $2, $3)",
+            &[&"user7", &"mypass", &"user@test1.com"],
+        )?;
+
+     
+    
+    client.execute(
+        "INSERT INTO next_gen_app.app_user (username, password, email) VALUES ($1, $2, $3)",
+        &[&"user8", &"mypass2", &"use2@gmail3.com"],
+    )?;
+
+    client.execute(
+        "INSERT INTO next_gen_app.app_user (username, password, email) VALUES ($1, $2, $3)",
+        &[&"user9", &"anotherpass", &"mister3@test34.com"],
+    )?;
+
+    for row in client.query("SELECT id, username, password, email FROM next_gen_app.app_user", &[])? {
+        let id: i32 = row.get(0);
+        let username: &str = row.get(1);
+        let password: &str = row.get(2);
+        let email: &str = row.get(3);
+    
+        println!(
+            "found app user: {}) {} | {} | {}",
+            id, username, password, email
+        );
+
+    
+     
+    }
+
+    client.execute(
+        "UPDATE next_gen_app.app_user SET username=$1 WHERE id=$2",
+        &[&"jack1", &11],
+    )?;
+
+    client.execute("DELETE FROM next_gen_app.app_user WHERE id=$1", &[&11])?;
+
+    Ok(())
+    }
+
+
+  
+
+
+
+   
 }
