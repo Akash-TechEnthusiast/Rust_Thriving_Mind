@@ -1,29 +1,34 @@
-use mysql::prelude::*;
-use mysql::{self, Opts};
+use postgres::{ Client, Error, NoTls };
+// use std::num::ParseIntError;
+// mod actions; // this will be used in the next steps
 
-fn main() -> Result<(), mysql::Error> {
-    // Define database connection options
-    let opts = Opts::from_url("mysql://root:KGM@123$@localhost:3306/biometric_data")?;
+fn main() -> Result<(), Error> {
+    let mut _client = Client::connect(
+        "host     = localhost
+        port     = 5432
+        user     = postgres
+        password = KGM@123$
+        
+        dbname = postgres",
 
-    // Establish a MySQL connection
-    let pool = mysql::Pool::new(opts)?;
+        NoTls
+    )?;
 
-    // Execute a simple query
-    let query = "SELECT serverip, port FROM server_details";
+  
+    println!("Helo world " );
+        for row in _client.query("SELECT id,name FROM next_gen_app.json_data", &[])? {
+            let id: int4 = row.get(0);
+            let username: &str = row.get(1);
+      
+        
+            println!("found app user: {} ,{}", id,username );
+        }
     
-    // Get a mutable connection from the pool
-    let mut conn = pool.get_conn()?;
-    
-    // Call prep_exec on the mutable connection
-    let query_results = conn.prep_exec(query, ())?;
 
-    // Process and print the query results
-    for row_result in query_results {
-        let row = row_result?;
-        let person_id: String = row.get("serverip").unwrap();
-        let person_name: String = row.get("port").unwrap();
-        println!("Person ID: {}, Person Name: {}", person_id, person_name);
-    }
+    // Using the "?" operator that works like the unwrap() method
+    // This will panic an error of type postgres and will make the function return, thats because we have to use that kind of Error here
+    // If we were parsing something, the kind of error could use is ParseIntError
 
-     Ok(())
+
+    Ok(())
 }
