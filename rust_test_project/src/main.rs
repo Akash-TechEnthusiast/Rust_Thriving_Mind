@@ -10,17 +10,19 @@ fn main() -> Result<(), Error> {
         port     = 5432
         user     = postgres
         password = KGM@123$
-        
         dbname = postgres",
-
         NoTls
     )?;
 
+    let user = String::from("Jess");
+    let user_id: i32 = 11; 
+    let dropuser = user.clone(); // Clone the value
+    let updateuser = user.clone(); // Clone the value
   
     actions::create::Select(&mut _client);
-    actions::create::Insert(&mut _client,"jack".to_string(),56);
-    actions::create::Drop(&mut _client,"jack".to_string(),23);
-    actions::create::Update(&mut _client,"jack".to_string(),0);
+    actions::create::Insert(&mut _client,user,user_id);
+    actions::create::Drop(&mut _client, dropuser,user_id);
+    actions::create::Update(&mut _client, updateuser,user_id);
     
 
     println!("Helo world " );
