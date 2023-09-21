@@ -1,0 +1,19 @@
+/home/husen/Downloads/Development/Rust/Rust_Thriving_Mind/rust_test_project/target/debug/deps/mysql-c08b3fa7b1187b13.rmeta: /home/husen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mysql-16.1.0/src/lib.rs /home/husen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mysql-16.1.0/src/conn/mod.rs /home/husen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mysql-16.1.0/src/conn/opts.rs /home/husen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mysql-16.1.0/src/conn/pool.rs /home/husen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mysql-16.1.0/src/conn/stmt_cache.rs /home/husen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mysql-16.1.0/src/error.rs /home/husen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mysql-16.1.0/src/io/mod.rs /home/husen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mysql-16.1.0/src/io/tcp.rs /home/husen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mysql-16.1.0/src/packet.rs
+
+/home/husen/Downloads/Development/Rust/Rust_Thriving_Mind/rust_test_project/target/debug/deps/libmysql-c08b3fa7b1187b13.rlib: /home/husen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mysql-16.1.0/src/lib.rs /home/husen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mysql-16.1.0/src/conn/mod.rs /home/husen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mysql-16.1.0/src/conn/opts.rs /home/husen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mysql-16.1.0/src/conn/pool.rs /home/husen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mysql-16.1.0/src/conn/stmt_cache.rs /home/husen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mysql-16.1.0/src/error.rs /home/husen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mysql-16.1.0/src/io/mod.rs /home/husen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mysql-16.1.0/src/io/tcp.rs /home/husen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mysql-16.1.0/src/packet.rs
+
+/home/husen/Downloads/Development/Rust/Rust_Thriving_Mind/rust_test_project/target/debug/deps/mysql-c08b3fa7b1187b13.d: /home/husen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mysql-16.1.0/src/lib.rs /home/husen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mysql-16.1.0/src/conn/mod.rs /home/husen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mysql-16.1.0/src/conn/opts.rs /home/husen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mysql-16.1.0/src/conn/pool.rs /home/husen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mysql-16.1.0/src/conn/stmt_cache.rs /home/husen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mysql-16.1.0/src/error.rs /home/husen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mysql-16.1.0/src/io/mod.rs /home/husen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mysql-16.1.0/src/io/tcp.rs /home/husen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mysql-16.1.0/src/packet.rs
+
+/home/husen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mysql-16.1.0/src/lib.rs:
+/home/husen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mysql-16.1.0/src/conn/mod.rs:
+/home/husen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mysql-16.1.0/src/conn/opts.rs:
+/home/husen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mysql-16.1.0/src/conn/pool.rs:
+/home/husen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mysql-16.1.0/src/conn/stmt_cache.rs:
+/home/husen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mysql-16.1.0/src/error.rs:
+/home/husen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mysql-16.1.0/src/io/mod.rs:
+/home/husen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mysql-16.1.0/src/io/tcp.rs:
+/home/husen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mysql-16.1.0/src/packet.rs:
+
+# env-dep:CARGO_CFG_TARGET_ARCH=x86_64
+# env-dep:CARGO_CFG_TARGET_OS=linux
+# env-dep:CARGO_PKG_VERSION=16.1.0
