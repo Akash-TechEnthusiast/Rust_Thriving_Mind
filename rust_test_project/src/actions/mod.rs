@@ -7,17 +7,17 @@ pub mod create {
     #[derive(Debug)]
     struct User {
         username: String,
-        user_id: String
+        age: i32
     }
     
 
     pub fn Select(client: &mut Client) -> Result<(), Error> {
 
 
-        for row in client.query("SELECT name,name FROM next_gen_app.json_data", &[])? {
+        for row in client.query("SELECT name,age FROM next_gen_app.json_data", &[])? {
             let user = User {
                 username: row.get(0),
-                user_id: row.get(1) 
+                age: row.get(1) 
             };
             println!("Record: {:?}", &user);
         }
@@ -25,32 +25,32 @@ pub mod create {
 
     }
 
-    pub fn Insert(client: &mut Client, username: String, user_id: i32) -> Result<(), Error> {
+    pub fn Insert(client: &mut Client, username: String, age: i32) -> Result<(), Error> {
 
         let statement = client.prepare_typed(
-            "INSERT INTO users (username, user_id) VALUES ($1, $2)",
+            "INSERT INTO next_gen_app.json_data (name, age) VALUES ($1, $2)",
             &[Type::VARCHAR, Type::INT4],
         )?;
     
         let res = client.execute(
             &statement,
-            &[&username, &user_id]
+            &[&username, &age]
         )?;
     
         print!("Result while INSERT -> {}", &res);
         Ok(())
     }
     
-    pub fn Drop(client: &mut Client, username: String, user_id: i32) -> Result<(), Error> {
+    pub fn Drop(client: &mut Client, username: String, age: i32) -> Result<(), Error> {
     
         let statement = client.prepare_typed(
-            "DELETE FROM users WHERE user_id = $1",
+            "DELETE FROM next_gen_app.json_data WHERE age = $1",
             &[Type::INT4],
         )?;
     
         let res = client.execute(
             &statement,
-            &[&user_id]
+            &[&age]
         )?;
     
         print!("Result while INSERT -> {}", &res);
@@ -58,16 +58,16 @@ pub mod create {
         Ok(())
     }
 
-    pub fn Update(client: &mut Client, username: String, user_id: i32) -> Result<(), Error> {
+    pub fn Update(client: &mut Client, username: String, age: i32) -> Result<(), Error> {
     
         let statement = client.prepare_typed(
-            "UPDATE users SET username = 'Bearz' WHERE user_id = $1",
+            "UPDATE next_gen_app.json_data SET name = 'Bearz' WHERE age = $1",
             &[Type::INT4],
         )?;
     
         let res = client.execute(
             &statement,
-            &[&user_id]
+            &[&age]
         )?;
     
         print!("Result while INSERT -> {}", &res);

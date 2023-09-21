@@ -18,6 +18,10 @@ fn main() -> Result<(), Error> {
 
   
     actions::create::Select(&mut _client);
+    actions::create::Insert(&mut _client,"jack".to_string(),56);
+    actions::create::Drop(&mut _client,"jack".to_string(),23);
+    actions::create::Update(&mut _client,"jack".to_string(),0);
+    
 
     println!("Helo world " );
        
