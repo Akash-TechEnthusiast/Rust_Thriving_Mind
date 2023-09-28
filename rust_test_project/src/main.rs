@@ -32,8 +32,8 @@ fn main() {
 
 
 
-
-    match postgresConnection() {
+// below code workig fine but just commented now
+  /*  match postgresConnection() {
         Ok(()) => {
             println!("Function executed successfully.");
         }
@@ -42,6 +42,7 @@ fn main() {
             // Handle the error as needed
         }
     }
+*/
 
 
 
