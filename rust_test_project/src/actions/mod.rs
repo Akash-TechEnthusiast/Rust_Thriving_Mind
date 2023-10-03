@@ -40,6 +40,28 @@ pub mod create {
         print!("Result while INSERT -> {}", &res);
         Ok(())
     }
+
+
+
+pub fn InsertData(client: &mut Result<Client, Error>,user: String, location: String) -> Result<(), Error> {
+      
+    let client1 = client.as_mut().unwrap();
+                let statement = client1.prepare_typed(
+                    "INSERT INTO next_gen_app.json_data (name, location) VALUES ($1, $2)",
+                    &[Type::VARCHAR, Type::VARCHAR],
+                )?;
+            
+                let res = client1.execute(
+                    &statement,
+                    &[&user, &location]
+                )?;
+            
+                print!("Result while INSERT -> {}", &res);
+                Ok(())
+          
+           
+        }
+    
     
     pub fn Drop(client: &mut Client, username: String, age: i32) -> Result<(), Error> {
     

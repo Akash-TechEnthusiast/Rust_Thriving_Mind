@@ -5,6 +5,9 @@ use postgres::Error as PostgresError;
 use std::net::{ TcpListener, TcpStream };
 use std::io::{ Read, Write };
 use std::env;
+use postgres::types::Type;
+
+
 
 #[macro_use]
 extern crate serde_derive;
@@ -18,7 +21,8 @@ struct User {
 }
 
 
-const DB_URL: &str = "";
+
+const DB_URL: &str = "postgres://postgres:KGM@123$:5432/postgres";
 
 //cosntants
 const OK_RESPONSE: &str = "HTTP/1.1 200 OK\r\nContent-Type: application/json\r\n\r\n";
@@ -30,6 +34,12 @@ mod actions;
 
 fn main() {
 
+
+
+   /* if let Err(_) = set_database() {
+        println!("Error setting database");
+        return;
+    } */
 
 
 // below code workig fine but just commented now
@@ -60,11 +70,6 @@ fn main() {
              }
          }
      }
-
-
-
-       
-
     // Using the "?" operator that works like the unwrap() method
     // This will panic an error of type postgres and will make the function return, thats because we have to use that kind of Error here
     // If we were parsing something, the kind of error could use is ParseIntError
@@ -73,44 +78,22 @@ fn main() {
     //Ok(());
 }
 
-
-fn postgresConnection() -> Result<(), Error> {
-
-    let mut _client = Client::connect(
-        "host     = localhost
-        port     = 5432
-        user     = postgres
-        password = KGM@123$
-        dbname = postgres",
-        NoTls
+fn set_database() -> Result<(), PostgresError> {
+    let mut client = Client::connect("postgres://postgres:KGM@123$:5432/postgres", NoTls)?;
+    client.batch_execute(
+        "
+        CREATE TABLE IF NOT EXISTS next_gen_app.users (
+            id SERIAL PRIMARY KEY,
+            name VARCHAR NOT NULL,
+            email VARCHAR NOT NULL
+        )
+    "
     )?;
-
-    let user = String::from("Jess");
-    let user_id: i32 = 11; 
-    let dropuser = user.clone(); // Clone the value
-    let updateuser = user.clone(); // Clone the value
-   // working just commeted below code 
-    actions::create::Select(&mut _client);                                     
-  //  actions::create::Insert(&mut _client,user,user_id);
-  //  actions::create::Drop(&mut _client, dropuser,user_id);
-  //  actions::create::Update(&mut _client, updateuser,user_id);
-    
-  // actions::create::CreateTable(&mut _client);
-    
-
-    println!("Helo world " );
     Ok(())
-
 }
 
-fn get_id(request: &str) -> &str {
-    request.split("/").nth(2).unwrap_or_default().split_whitespace().next().unwrap_or_default()
-}
 
-//deserialize user from request body without id
-fn get_user_request_body(request: &str) -> Result<User, serde_json::Error> {
-    serde_json::from_str(request.split("\r\n\r\n").last().unwrap_or_default())
-}
+
 
 fn handle_client(mut stream: TcpStream) {
     let mut buffer = [0; 1024];
@@ -135,18 +118,99 @@ fn handle_client(mut stream: TcpStream) {
     }
 }
 
-fn handle_post_request(request: &str) -> (String, String) {
-    match (get_user_request_body(&request)) {
-        (Ok(user)) => {
 
-            println!("{:?}",user);
-       
+
+
+
+fn get_id(request: &str) -> &str {
+    request.split("/").nth(2).unwrap_or_default().split_whitespace().next().unwrap_or_default()
+}
+
+//deserialize user from request body without id
+fn get_user_request_body(request: &str) -> Result<User, serde_json::Error> {
+    serde_json::from_str(request.split("\r\n\r\n").last().unwrap_or_default())
+}
+
+
+/*fn handle_post_request(request: &str) -> (String, String) {
+    match (get_user_request_body(&request), Client::connect(DB_URL, NoTls)) {
+        (Ok(user), Ok(mut client)) => {
+            client
+                .execute(
+                    "INSERT INTO next_gen_app.json_data (name, location) VALUES ($1, $2)",
+                    &[&user.name, &user.email]
+                )
+                .unwrap();
 
             (OK_RESPONSE.to_string(), "User created".to_string())
         }
         _ => (INTERNAL_ERROR.to_string(), "Internal error".to_string()),
     }
+} */
+
+
+
+ fn handle_post_request(request: &str) -> (String, String) {
+
+    
+// postgres://postgres:KGM@123$:5432/postgres
+    
+    match get_user_request_body(&request) {
+        Ok(user) => {
+
+            println!("{:?}",user);
+
+            println!("field1: {}", user.name);
+            println!("field2: {}", user.email);
+
+          
+            match insertdata(user) {
+                Ok(()) => {
+                    println!("Function executed successfully.");
+                }
+                Err(err) => {
+                    eprintln!("Error: {}", err);
+                    // Handle the error as needed
+                }
+            }
+
+           
+            (OK_RESPONSE.to_string(), "User created".to_string())
+        }
+        _ => (INTERNAL_ERROR.to_string(), "Internal error".to_string()),
+    }
+} 
+
+fn insertdata(user : User) -> Result<(), Error> {
+
+ 
+    let mut _client = Client::connect(
+        "host     = localhost
+        port     = 5432
+        user     = postgres
+        password = KGM@123$
+        dbname = postgres",
+        NoTls
+    );    
+
+    println!("new field1: {}", user.name);
+    println!("new field2: {}", user.email);
+
+    println!("Helo world " );
+
+     actions::create::InsertData(&mut _client,user.name,user.email);
+
+   /* let statement = client12?.prepare_typed(
+        "INSERT INTO next_gen_app.json_data (name, age) VALUES ($1, $2)",
+        &[Type::VARCHAR, Type::INT4],
+    )?;*/
+
+
+   
+    Ok(())
+
 }
+
 
 //handle get request
 fn handle_get_request(request: &str) -> (String, String) {
@@ -228,3 +292,34 @@ fn handle_delete_request(request: &str) -> (String, String) {
         _ => (INTERNAL_ERROR.to_string(), "Internal error".to_string()),
     }
 }
+
+
+fn postgresConnection() -> Result<(), Error> {
+
+    let mut _client = Client::connect(
+        "host     = localhost
+        port     = 5432
+        user     = postgres
+        password = KGM@123$
+        dbname = postgres",
+        NoTls
+    )?;
+
+    let user = String::from("Jess");
+    let user_id: i32 = 11; 
+    let dropuser = user.clone(); // Clone the value
+    let updateuser = user.clone(); // Clone the value
+   // working just commeted below code 
+    actions::create::Select(&mut _client);                                     
+  //  actions::create::Insert(&mut _client,user,user_id);
+  //  actions::create::Drop(&mut _client, dropuser,user_id);
+  //  actions::create::Update(&mut _client, updateuser,user_id);
+    
+  // actions::create::CreateTable(&mut _client);
+    
+
+    println!("Helo world " );
+    Ok(())
+
+}
+
